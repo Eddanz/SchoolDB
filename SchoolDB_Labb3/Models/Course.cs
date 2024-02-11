@@ -11,5 +11,5 @@ public partial class Course
 
     public short? FkEmployeeId { get; set; }
 
-    public virtual Employee? FkEmployee { get; set; }
+    public bool IsActive { get; set; }
 }

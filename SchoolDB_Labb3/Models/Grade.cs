@@ -5,7 +5,7 @@ namespace SchoolDB_Labb3.Models;
 
 public partial class Grade
 {
-    public string Grade1 { get; set; } = null!;
+    public short Grade1 { get; set; }
 
     public DateOnly Date { get; set; }
 

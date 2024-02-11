@@ -113,7 +113,7 @@ namespace SchoolDB_Labb3
             var firstNameAsc = db.Students.OrderBy(s => s.FirstName);
             foreach (var student in firstNameAsc)
             {
-                Console.WriteLine($"\n{student.FirstName} {student.LastName} med student ID: {student.StudentId}");
+                Console.WriteLine($"\n{student.SecurityNumber}, {student.FirstName} {student.LastName} med student ID: {student.StudentId}, går i klass {student.Class}");
             }
 
             Console.ReadLine();
@@ -129,7 +129,7 @@ namespace SchoolDB_Labb3
             var firstNameDesc = db.Students.OrderByDescending(s => s.FirstName);
             foreach (var student in firstNameDesc)
             {
-                Console.WriteLine($"\n{student.FirstName} {student.LastName} med student ID: {student.StudentId}");
+                Console.WriteLine($"\n{student.SecurityNumber}, {student.FirstName} {student.LastName} med student ID: {student.StudentId}, går i klass {student.Class}");
             }
 
             Console.ReadLine();
@@ -145,7 +145,7 @@ namespace SchoolDB_Labb3
             var lastNameAsc = db.Students.OrderBy(s => s.LastName);
             foreach (var student in lastNameAsc)
             {
-                Console.WriteLine($"\n{student.FirstName} {student.LastName} med student ID: {student.StudentId}");
+                Console.WriteLine($"\n{student.SecurityNumber}, {student.FirstName} {student.LastName} med student ID: {student.StudentId}, går i klass {student.Class}");
             }
 
             Console.ReadLine();
@@ -161,7 +161,7 @@ namespace SchoolDB_Labb3
             var lastNameDesc = db.Students.OrderByDescending(s => s.LastName);
             foreach (var student in lastNameDesc)
             {
-                Console.WriteLine($"\n{student.FirstName} {student.LastName} med student ID: {student.StudentId}");
+                Console.WriteLine($"\n{student.SecurityNumber}, {student.FirstName} {student.LastName} med student ID: {student.StudentId}, går i klass {student.Class}");
             }
 
             Console.ReadLine();

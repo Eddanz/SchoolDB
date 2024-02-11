@@ -9,9 +9,11 @@ public partial class Employee
 
     public long SecurityNumber { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string FullName { get; set; } = null!;
 
-    public string? Role { get; set; }
+    public string? Department { get; set; }
 
-    public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
+    public decimal? Salary { get; set; }
+
+    public DateOnly? StartDate { get; set; }
 }

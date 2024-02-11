@@ -25,7 +25,7 @@ public partial class SchoolDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data source = DESKTOP-HTI6DCF; Initial Catalog = SchoolDB-Labb2; Integrated Security = True; TrustServerCertificate = True");
+        => optionsBuilder.UseSqlServer("Data Source = DESKTOP-HTI6DCF;Initial Catalog = SchoolDB-Labb2;Integrated security = True; TrustServerCertificate = True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,10 +39,6 @@ public partial class SchoolDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("Course_Name");
             entity.Property(e => e.FkEmployeeId).HasColumnName("FK_EmployeeID");
-
-            entity.HasOne(d => d.FkEmployee).WithMany(p => p.Courses)
-                .HasForeignKey(d => d.FkEmployeeId)
-                .HasConstraintName("FK_Course_Employee");
         });
 
         modelBuilder.Entity<Employee>(entity =>
@@ -50,12 +46,13 @@ public partial class SchoolDbContext : DbContext
             entity.ToTable("Employee");
 
             entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
-            entity.Property(e => e.Name)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Role)
+            entity.Property(e => e.Department)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.FullName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Salary).HasColumnType("money");
             entity.Property(e => e.SecurityNumber).HasColumnName("Security_Number");
         });
 
@@ -68,10 +65,7 @@ public partial class SchoolDbContext : DbContext
             entity.Property(e => e.FkCourseId).HasColumnName("FK_CourseID");
             entity.Property(e => e.FkEmployeeId).HasColumnName("FK_EmployeeID");
             entity.Property(e => e.FkStudentId).HasColumnName("FK_StudentID");
-            entity.Property(e => e.Grade1)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .HasColumnName("Grade");
+            entity.Property(e => e.Grade1).HasColumnName("Grade");
 
             entity.HasOne(d => d.FkCourse).WithMany()
                 .HasForeignKey(d => d.FkCourseId)

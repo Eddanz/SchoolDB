@@ -20,6 +20,8 @@ namespace SchoolDB_Labb3
                 "\n[2] Hämta alla elever i en viss klass" +
                 "\n[3] Lägga till ny personal" +
                 "\n[4] Hämta personal" +
+                "\n[5] Roller" +
+                "\n[6] Kurser" +
                 "\n\nSkriv in ditt val: "
                 );
 
@@ -43,12 +45,37 @@ namespace SchoolDB_Labb3
                         EmployeeMethods.GetEmployees();
                         break;
 
+                    case "5":
+                        EmployeeMethods.EmployeeRoleCount();
+                        break;
+
+                    case "6":
+                        ActiveCourses();
+                        break;
+
                     default:
                         Console.WriteLine("\nDu måste välja mellan 1-3");
                         Console.ReadLine();
                         continue;
                 }
             }
+        }
+
+        public static void ActiveCourses()
+        {
+            Console.Clear();
+
+            using SchoolDbContext db = new SchoolDbContext();
+
+            var courses = db.Courses.OrderBy(c => c.CourseId).Where(c => c.IsActive == true);
+
+            Console.WriteLine("\nPå skolan finns följande kurser:");
+
+            foreach ( var course in courses)
+            {
+                Console.WriteLine($"\n{course.CourseName} med kurs ID: {course.CourseId}");
+            }
+            Console.ReadLine();
         }
     }
 }

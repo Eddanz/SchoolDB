@@ -18,32 +18,32 @@ namespace SchoolDB_Labb3
             Console.Write("\nVad heter den nya anställda? (För- och efternamn)" +
                 "\nMata in: ");
 
-            var name = Console.ReadLine();
+            var fullname = Console.ReadLine();
 
             while (true)
             {
-                Console.Write($"\nVad har {name} för personnummer?" +
+                Console.Write($"\nVad har {fullname} för personnummer?" +
                 $"\nMata in: ");
 
                 if (long.TryParse(Console.ReadLine(), out long securityNumber))
                 {
                     
-                    Console.Write($"\nVad har {name} för roll på skolan?" +
+                    Console.Write($"\nVad har {fullname} för roll på skolan?" +
                     $"\nMata in: ");
 
-                    var role = Console.ReadLine();
+                    var department = Console.ReadLine();
 
                     Employee employee = new Employee()
                     {
-                        Name = name,
+                        FullName = fullname,
                         SecurityNumber = securityNumber,
-                        Role = role
+                        Department = department
                     };
 
                     db.Employees.Add(employee);
                     db.SaveChanges();
 
-                    Console.WriteLine($"\nDen nyanställda {employee.Name} (ID: {employee.EmployeeId}) med roll som {employee.Role} och personnummer: {employee.SecurityNumber} har sparats!");
+                    Console.WriteLine($"\nDen nyanställda {employee.FullName} (ID: {employee.EmployeeId}) med roll som {employee.Department} och personnummer: {employee.SecurityNumber} har sparats!");
                     Console.ReadLine();
                     break;
                 }
@@ -93,14 +93,14 @@ namespace SchoolDB_Labb3
             using SchoolDbContext db = new SchoolDbContext();
 
             var employees = from emp in db.Employees
-                            orderby emp.Name
+                            orderby emp.FullName
                             select emp;
 
             Console.WriteLine("\nAll personal på skolan: ");
 
             foreach (var employee in employees)
             {
-                Console.WriteLine($"\n{employee.Name}, {employee.Role}");
+                Console.WriteLine($"\n{employee.FullName}, {employee.Department}");
             }
 
             Console.ReadLine();
@@ -113,17 +113,37 @@ namespace SchoolDB_Labb3
             using SchoolDbContext db = new SchoolDbContext();
 
             var teachers = from emp in db.Employees
-                          where emp.Role == "Teacher"
-                          orderby emp.Name
+                          where emp.Department == "Teacher"
+                          orderby emp.FullName
                           select emp;
 
             Console.WriteLine("\nAlla lärare på skolan: ");
 
             foreach (var teacher in teachers)
             {
-                Console.WriteLine($"\n{teacher.Name}");
+                Console.WriteLine($"\n{teacher.FullName}");
             }
 
+            Console.ReadLine();
+        }
+
+        public static void EmployeeRoleCount()
+        {
+            Console.Clear();
+
+            using SchoolDbContext db = new SchoolDbContext();
+
+            var roleCounts = db.Employees
+                .GroupBy(e => e.Department)
+                .Select(g => new { Department = g.Key, Count = g.Count()})
+                .ToList();
+
+            Console.WriteLine("\nPå skolan finns följande personal:");
+
+            foreach (var role in roleCounts)
+            {
+                Console.WriteLine($"\n{role.Count} styck med rollen: {role.Department}");
+            }
             Console.ReadLine();
         }
     }
