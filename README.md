@@ -26,7 +26,3 @@ To run this project, you need to have the .NET SDK installed on your machine. Yo
 - Use the provided methods in EmployeeMethods.cs and StudentMethods.cs to manage employees and students, respectively.
 - Modify the utility methods in Utility.cs as needed for additional functionalities.
 - Feel free to extend the project with more features or refactor existing code as necessary.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
